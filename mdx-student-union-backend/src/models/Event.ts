@@ -16,6 +16,6 @@ const eventSchema = new mongoose.Schema<IEvent>({
   location: { type: String, required: false },
 });
 
-const EventModel = mongoose.model<IEvent>("User", eventSchema);
+const EventModel = mongoose.model<IEvent>("Event", eventSchema);
 
 export default EventModel;
