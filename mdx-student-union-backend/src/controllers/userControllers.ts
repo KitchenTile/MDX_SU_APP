@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserModel from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getUserById = async (
   req: Request<{ id: string }>,
@@ -27,7 +28,15 @@ export const createUser = async (req: Request, res: Response) => {
       return res.status(400).send("Missing required fields");
     }
 
-    const user = await UserModel.create({ fName, lName, email, password });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(password, salt);
+
+    const user = await UserModel.create({
+      fName,
+      lName,
+      email,
+      password: hashedPass,
+    });
 
     const { password: _, ...userWithoutPassword } = user.toObject();
     return res.status(201).json(userWithoutPassword);
@@ -57,7 +66,12 @@ export const updateUser = async (
 ) => {
   try {
     const userId = req.params.id;
-    const updatedFields = req.body;
+    let updatedFields = { ...req.body };
+
+    if (updatedFields.password) {
+      const salt = await bcrypt.genSalt(10);
+      updatedFields.password = await bcrypt.hash(updatedFields.password, salt);
+    }
 
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
@@ -65,13 +79,14 @@ export const updateUser = async (
       { new: true, runValidators: true }
     );
 
-    if (!updatedUser) return res.status(404).send("User not found");
-
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const { password: _, ...userWithoutPassword } = updatedUser.toObject();
     return res.status(200).json(userWithoutPassword);
   } catch (error) {
     console.error(error);
-    return res.status(500).send("Server error");
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
