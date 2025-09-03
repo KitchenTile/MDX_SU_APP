@@ -6,13 +6,15 @@ import {
   getUserById,
   updateUser,
 } from "../controllers/userControllers";
+import { validateToken } from "../middleware/authMiddlewares";
 
 const router = express.Router();
 
 router.post("/", createUser);
-router.get("/:id", getUserById);
-router.put("/:id", updateUser);
-router.get("/", getAllUsers);
-router.delete("/:id", deleteUser);
+
+router.get("/", validateToken, getAllUsers);
+router.get("/:id", validateToken, getUserById);
+router.put("/:id", validateToken, updateUser);
+router.delete("/:id", validateToken, deleteUser);
 
 export default router;
