@@ -15,7 +15,7 @@ export const getUserById = async (
     const { password: _, ...userWithoutPassword } = user.toObject();
     return res.status(200).json(userWithoutPassword);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).send("Server error");
   }
 };
@@ -41,7 +41,7 @@ export const createUser = async (req: Request, res: Response) => {
     const { password: _, ...userWithoutPassword } = user.toObject();
     return res.status(201).json(userWithoutPassword);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).send("Server error");
   }
 };
@@ -55,7 +55,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     });
     return res.status(200).json(publicUsers);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).send("Server error");
   }
 };
@@ -85,7 +85,7 @@ export const updateUser = async (
     const { password: _, ...userWithoutPassword } = updatedUser.toObject();
     return res.status(200).json(userWithoutPassword);
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -102,7 +102,7 @@ export const deleteUser = async (
 
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return res.status(500).send("Server error");
   }
 };
