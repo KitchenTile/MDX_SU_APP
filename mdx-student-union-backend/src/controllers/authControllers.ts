@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/User";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { generateJWT } from "../utils/jwt";
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -21,11 +21,7 @@ export const login = async (req: Request, res: Response) => {
       if (err) {
         return res.status(401).json({ message: "Invalid credential" });
       } else {
-        const token = jwt.sign(
-          { id: user._id, role: user.role },
-          process.env.JWT_SECRET!,
-          { expiresIn: "4h" }
-        );
+        const token = generateJWT({ id: user._id, role: user.role });
         const { password: _, ...userWithoutPassword } = user.toObject();
 
         return res.status(200).json({
