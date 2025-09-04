@@ -22,9 +22,10 @@ export const getUserById = async (
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { fName, lName, email, password } = req.body;
+    console.log(req.body);
+    const { fName, lName, email, password, uName } = req.body;
 
-    if (!fName || !lName || !email || !password) {
+    if (!fName || !lName || !email || !password || !uName) {
       return res.status(400).send("Missing required fields");
     }
 
@@ -35,6 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
       fName,
       lName,
       email,
+      uName,
       password: hashedPass,
     });
 
