@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/User";
-import bcrypt from "bcrypt";
 import { generateJWT } from "../utils/jwt";
+import { comparePassword } from "../utils/password";
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -17,18 +17,17 @@ export const login = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    bcrypt.compare(password, user.password, (err, data) => {
-      if (err) {
-        return res.status(401).json({ message: "Invalid credential" });
-      } else {
-        const token = generateJWT({ id: user._id, role: user.role });
-        const { password: _, ...userWithoutPassword } = user.toObject();
+    const passwordMatch = comparePassword(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid credential" });
+    }
 
-        return res.status(200).json({
-          user: userWithoutPassword,
-          token,
-        });
-      }
+    const token = generateJWT({ id: user._id, role: user.role });
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
+    return res.status(200).json({
+      user: userWithoutPassword,
+      token,
     });
   } catch (err) {
     console.log(err);
