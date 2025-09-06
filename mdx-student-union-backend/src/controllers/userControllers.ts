@@ -30,9 +30,6 @@ export const createUser = async (req: Request, res: Response) => {
       return res.status(400).send("Missing required fields");
     }
 
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPass = await bcrypt.hash(password, salt);
-
     const hashedPass = hashPassword(password);
 
     const user = await UserModel.create({
