@@ -64,14 +64,29 @@ export const editPost = async (req: Request<{ id: string }>, res: Response) => {
   }
 };
 
+export const getPostById = async (
+  req: Request<{ id: string }>,
+  res: Response
+) => {
+  try {
+    const postId = req.params.id;
+
+    const post = await EventModel.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.status(200).send(post);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Server error");
+  }
+};
+
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
     const allPosts = await EventModel.find({});
-
-    // const publicPosts = allPosts.map(post => {
-
-    // })
-
     res.status(200).send(allPosts);
   } catch (err) {
     console.log(err);
