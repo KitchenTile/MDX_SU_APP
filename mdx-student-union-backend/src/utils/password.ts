@@ -14,7 +14,7 @@ export const comparePassword = async (
   return bcrypt.compare(password, userPassword);
 };
 
-export function isPasswordValid(password: string): boolean {
+export const isPasswordValid = (password: string): boolean => {
   /*
    * At least one lowercase letter ((?=.*[a-z])).
    * At least one uppercase letter ((?=.*[A-Z])).
@@ -25,4 +25,4 @@ export function isPasswordValid(password: string): boolean {
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
   return regex.test(password);
-}
+};
