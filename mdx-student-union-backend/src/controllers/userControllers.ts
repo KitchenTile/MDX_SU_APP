@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/User";
 import bcrypt from "bcrypt";
-import { hashPassword } from "../utils/password";
+import { hashPassword, isPasswordValid } from "../utils/password";
 
 export const getUserById = async (
   req: Request<{ id: string }>,
@@ -28,6 +28,10 @@ export const createUser = async (req: Request, res: Response) => {
 
     if (!fName || !lName || !email || !password || !uName) {
       return res.status(400).send("Missing required fields");
+    }
+
+    if (!isPasswordValid(password)) {
+      return res.status(400).send("Password not strong enough");
     }
 
     const hashedPass = hashPassword(password);
@@ -71,8 +75,6 @@ export const updateUser = async (
     let updatedFields = { ...req.body };
 
     if (updatedFields.password) {
-      // const salt = await bcrypt.genSalt(10);
-      // updatedFields.password = await bcrypt.hash(updatedFields.password, salt);
       updatedFields.password = hashPassword(updatedFields.password);
     }
 
