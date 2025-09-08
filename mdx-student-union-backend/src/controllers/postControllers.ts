@@ -1,29 +1,6 @@
 import { Request, Response } from "express";
 import { CommunicationModel, EventModel, PostModel } from "../models/Posts";
 
-// export const createPost = async (req: Request, res: Response) => {
-//   try {
-//     const { title, venue, sDate, eDate, location } = req.body;
-
-//     if (!title || !venue || !sDate || !eDate || !location) {
-//       res.status(400).json({ message: "Missing required fields" });
-//     }
-
-//     const event = await PostModel.create({
-//       title,
-//       venue,
-//       sDate,
-//       eDate,
-//       location,
-//     });
-
-//     res.status(200).send(event);
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).send("Server error");
-//   }
-// };
-
 export const createEvent = async (req: Request, res: Response) => {
   try {
     const { title, venue, sDate, eDate, location, tags, img } = req.body;
@@ -42,7 +19,7 @@ export const createEvent = async (req: Request, res: Response) => {
       img,
     });
 
-    return res.status(200).send(event);
+    return res.status(201).json(event);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error");
@@ -65,7 +42,7 @@ export const createCommunication = async (req: Request, res: Response) => {
       img,
     });
 
-    return res.status(200).send(communication);
+    return res.status(201).json(communication);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error");
@@ -132,7 +109,7 @@ export const getPostById = async (
 
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const allPosts = await PostModel.find({});
+    const allPosts = await PostModel.find({}).lean();
     return res.status(200).send(allPosts);
   } catch (err) {
     console.log(err);
