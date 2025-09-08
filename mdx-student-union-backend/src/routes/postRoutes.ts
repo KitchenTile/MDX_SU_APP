@@ -1,16 +1,18 @@
 import express from "express";
 
 import {
-  createPost,
   deletePost,
   getAllPosts,
   getPostById,
   editPost,
+  createEvent,
+  createCommunication,
 } from "../controllers/postControllers";
 
 const postRouter = express.Router();
 
-postRouter.post("/", createPost);
+postRouter.post("/event", createEvent);
+postRouter.post("/communication", createCommunication);
 postRouter.get("/", getAllPosts);
 
 postRouter.get("/:id", getPostById);
