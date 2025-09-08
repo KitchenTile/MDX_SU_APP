@@ -1,12 +1,35 @@
 import { Request, Response } from "express";
-import EventModel from "../models/Event";
+import { CommunicationModel, EventModel, PostModel } from "../models/Posts";
 
-export const createPost = async (req: Request, res: Response) => {
+// export const createPost = async (req: Request, res: Response) => {
+//   try {
+//     const { title, venue, sDate, eDate, location } = req.body;
+
+//     if (!title || !venue || !sDate || !eDate || !location) {
+//       res.status(400).json({ message: "Missing required fields" });
+//     }
+
+//     const event = await PostModel.create({
+//       title,
+//       venue,
+//       sDate,
+//       eDate,
+//       location,
+//     });
+
+//     res.status(200).send(event);
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).send("Server error");
+//   }
+// };
+
+export const createEvent = async (req: Request, res: Response) => {
   try {
-    const { title, venue, sDate, eDate, location } = req.body;
+    const { title, venue, sDate, eDate, location, tags, img } = req.body;
 
     if (!title || !venue || !sDate || !eDate || !location) {
-      res.status(400).json({ message: "Missing required fields" });
+      return res.status(400).json({ message: "Missing required fields" });
     }
 
     const event = await EventModel.create({
@@ -15,9 +38,34 @@ export const createPost = async (req: Request, res: Response) => {
       sDate,
       eDate,
       location,
+      tags,
+      img,
     });
 
-    res.status(200).send(event);
+    return res.status(200).send(event);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Server error");
+  }
+};
+
+export const createCommunication = async (req: Request, res: Response) => {
+  try {
+    const { title, author, body, tags, img } = req.body;
+
+    if (!title || !author || !body) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const communication = await CommunicationModel.create({
+      title,
+      author,
+      body,
+      tags,
+      img,
+    });
+
+    return res.status(200).send(communication);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error");
@@ -31,7 +79,7 @@ export const deletePost = async (
   try {
     const postId = req.params.id;
 
-    const deletedPost = await EventModel.findByIdAndDelete(postId);
+    const deletedPost = await PostModel.findByIdAndDelete(postId);
     if (!deletedPost) return res.status(404).send("Post not found");
 
     return res.status(200).json({ message: "Post deleted successfully" });
@@ -47,7 +95,7 @@ export const editPost = async (req: Request<{ id: string }>, res: Response) => {
 
     const updatedFields = { ...req.body };
 
-    const updatedPost = await EventModel.findByIdAndUpdate(
+    const updatedPost = await PostModel.findByIdAndUpdate(
       postId,
       updatedFields,
       { new: true, runValidators: true }
@@ -57,7 +105,7 @@ export const editPost = async (req: Request<{ id: string }>, res: Response) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    res.status(200).send(updatedPost);
+    return res.status(200).send(updatedPost);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error");
@@ -70,12 +118,12 @@ export const getPostById = async (
 ) => {
   try {
     const postId = req.params.id;
-    const post = await EventModel.findById(postId);
+    const post = await PostModel.findById(postId);
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    res.status(200).send(post);
+    return res.status(200).send(post);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error");
@@ -84,8 +132,8 @@ export const getPostById = async (
 
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const allPosts = await EventModel.find({});
-    res.status(200).send(allPosts);
+    const allPosts = await PostModel.find({});
+    return res.status(200).send(allPosts);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Server error");
