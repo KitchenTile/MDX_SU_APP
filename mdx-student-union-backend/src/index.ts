@@ -21,11 +21,11 @@ app.use(
   })
 );
 
+const PORT = process.env.PORT || 4000;
+
 app.get("/", (_req, res) => {
   res.send("API is working");
 });
-
-const PORT = process.env.PORT || 4000;
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -42,7 +42,7 @@ app.use(
     res: express.Response,
     next: express.NextFunction
   ) => {
-    console.error("🔥 Error:", err.stack || err.message);
+    console.error("Error:", err.stack || err.message);
 
     res.status(err.status || 500).json({
       success: false,
