@@ -3,7 +3,10 @@ import { CommunicationModel, EventModel, PostModel } from "../models/Posts";
 
 export const createEvent = async (req: Request, res: Response) => {
   try {
-    const { title, venue, sDate, eDate, location, tags, img } = req.body;
+    const { title, venue, location, tags, img } = req.body;
+
+    const sDate = new Date(req.body.sDate);
+    const eDate = new Date(req.body.eDate);
 
     if (!title || !venue || !sDate || !eDate || !location) {
       return res.status(400).json({ message: "Missing required fields" });
