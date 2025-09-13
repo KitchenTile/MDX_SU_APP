@@ -29,7 +29,7 @@ export default function HomeScreen() {
       }
     } 
 
-    fetchStuff();  
+    // fetchStuff();  
   })
   return (
     <ParallaxScrollView
