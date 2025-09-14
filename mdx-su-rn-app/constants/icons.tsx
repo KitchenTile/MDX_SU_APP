@@ -1,7 +1,7 @@
 import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 
 export const icon = {
-  Events: (props: any) => (
+  events: (props: any) => (
     <Ionicons name="calendar-outline" size={24} color="black" {...props} />
   ),
   index: (props: any) => (
