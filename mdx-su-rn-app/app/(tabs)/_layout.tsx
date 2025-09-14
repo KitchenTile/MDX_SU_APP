@@ -20,10 +20,11 @@ export default function TabLayout() {
           title: "Home",
         }}
       />
+
       <Tabs.Screen
-        name="store"
+        name="news"
         options={{
-          title: "Store",
+          title: "News",
         }}
       />
       <Tabs.Screen
@@ -33,9 +34,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="news"
+        name="store"
         options={{
-          title: "News",
+          title: "Store",
         }}
       />
     </Tabs>
