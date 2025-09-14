@@ -4,14 +4,13 @@ import { Text, PlatformPressable } from "@react-navigation/elements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
-import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import TabBarButton from "./TabBarButton";
 import { useState } from "react";
 import Animated, {
-  useAnimatedKeyboard,
+  Easing,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
@@ -62,8 +61,9 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
         const isFocused = state.index === index;
 
         const onPress = () => {
-          tabPositionX.value = withSpring(buttonWidth * index, {
-            duration: 1500,
+          tabPositionX.value = withTiming(buttonWidth * index, {
+            duration: 350,
+            easing: Easing.inOut(Easing.quad),
           });
           const event = navigation.emit({
             type: "tabPress",
