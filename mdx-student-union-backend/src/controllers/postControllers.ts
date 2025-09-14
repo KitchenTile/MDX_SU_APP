@@ -31,16 +31,16 @@ export const createEvent = async (req: Request, res: Response) => {
 
 export const createCommunication = async (req: Request, res: Response) => {
   try {
-    const { title, author, body, tags, img } = req.body;
+    const { title, author, message, tags, img } = req.body;
 
-    if (!title || !author || !body) {
+    if (!title || !author || !message) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
     const communication = await CommunicationModel.create({
       title,
       author,
-      body,
+      body: message,
       tags,
       img,
     });
