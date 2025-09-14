@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const EventsPage = () => {
+const NewsCard = () => {
   return (
     <View>
-      <Text>Events</Text>
+      <Text>NewsCard</Text>
     </View>
   );
 };
 
-export default EventsPage;
+export default NewsCard;
 
 const styles = StyleSheet.create({});
