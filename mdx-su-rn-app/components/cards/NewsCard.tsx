@@ -9,14 +9,15 @@ const NewsCard = ({
 }: {
   image: string;
   title: string;
-  createdAt: Date;
+  createdAt: string;
 }) => {
-  const formattedDate = createdAt.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  //   const formattedDate = createdAt.toLocaleDateString("en-GB", {
+  //     day: "numeric",
+  //     month: "short",
+  //     year: "numeric",
+  //   });
 
+  console.log(typeof createdAt);
   return (
     <View style={styles.cardContainer}>
       <Image
@@ -31,7 +32,7 @@ const NewsCard = ({
         <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
           {title}
         </Text>
-        <Text style={{ fontSize: 13 }}>{formattedDate}</Text>
+        <Text style={{ fontSize: 13 }}>{createdAt}</Text>
       </View>
       <TouchableOpacity style={styles.arrowRight} onPress={() => {}}>
         <FontAwesome6 name="arrow-right" size={20} color="black" />
