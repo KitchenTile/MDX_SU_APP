@@ -30,13 +30,6 @@ interface ICommunication {
 
 export const PostModel = mongoose.model("Post", basePostSchema);
 
-// const communicationSchema = Post.discriminator("communication", new mongoose.Schema<ICommunication>({
-//   venue: {string},
-//   sDate: Date;
-//   eDate: Date;
-//   location: string;
-// }))
-
 export const EventModel = PostModel.discriminator(
   "event",
   new mongoose.Schema<IEvent>({
@@ -55,12 +48,4 @@ export const CommunicationModel = PostModel.discriminator(
   })
 );
 
-// const eventSchema = new mongoose.Schema<IEvent>({
-//   title: { type: String, required: true },
-//   venue: { type: String, required: true },
-//   sDate: { type: Date, required: true, unique: true },
-//   eDate: { type: Date, required: true, unique: true },
-//   location: { type: String, required: false },
-// });
 
-// const PostModel = mongoose.model<IEvent>("Event", eventSchema);
