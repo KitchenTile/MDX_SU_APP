@@ -1,16 +1,37 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NewsCard from "@/components/cards/NewsCard";
+import CommunicationForm from "@/components/form";
+import { getCommunications } from "@/api/fetchAPI";
 // import image from "../../assets/images/Untitled_design-13.png";
 
 const NewsPage = () => {
+  const [news, setNews] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const posts = await getCommunications();
+        setNews(posts);
+      } catch (err) {
+        console.error("API Error:", err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.pageContainer}>
-      <NewsCard
-        title="Meet Your Student Officer Team 2025/2026"
-        image="../../assets/images/Untitled_design-13.png"
-        createdAt={new Date("2025-09-12")}
-      />
+      {news.map((individualNew: any) => (
+        <NewsCard
+          key={individualNew._id}
+          title={individualNew.title}
+          image={individualNew.img}
+          createdAt={individualNew.createdAt}
+        />
+      ))}
+
+      {/* <CommunicationForm /> */}
     </View>
   );
 };
