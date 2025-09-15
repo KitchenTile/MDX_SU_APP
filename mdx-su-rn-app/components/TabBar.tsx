@@ -28,8 +28,6 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     });
   };
 
-  console.log(state);
-
   const tabPositionX = useSharedValue(0);
 
   const animatedStyle = useAnimatedStyle(() => {
