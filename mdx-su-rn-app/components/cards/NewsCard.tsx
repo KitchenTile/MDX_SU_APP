@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { formattedDate } from "@/utils/formattedDate";
 
 const NewsCard = ({
   image,
@@ -17,7 +18,8 @@ const NewsCard = ({
   //     year: "numeric",
   //   });
 
-  console.log(typeof createdAt);
+  const formattedCreatedAt = formattedDate(createdAt);
+
   return (
     <View style={styles.cardContainer}>
       <Image
@@ -32,7 +34,7 @@ const NewsCard = ({
         <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
           {title}
         </Text>
-        <Text style={{ fontSize: 13 }}>{createdAt}</Text>
+        <Text style={{ fontSize: 13 }}>{formattedCreatedAt}</Text>
       </View>
       <TouchableOpacity style={styles.arrowRight} onPress={() => {}}>
         <FontAwesome6 name="arrow-right" size={20} color="black" />
