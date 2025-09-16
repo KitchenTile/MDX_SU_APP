@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import NewsCard from "@/components/cards/NewsCard";
 import CommunicationForm from "@/components/form";
 import { getCommunications } from "@/api/fetchAPI";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native";
 // import image from "../../assets/images/Untitled_design-13.png";
 
 const NewsPage = () => {
