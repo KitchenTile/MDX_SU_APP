@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import NewsCard from "@/components/cards/NewsCard";
 import CommunicationForm from "@/components/form";
 import { getCommunications } from "@/api/fetchAPI";
+import { ScrollView } from "react-native-gesture-handler";
 // import image from "../../assets/images/Untitled_design-13.png";
 
 const NewsPage = () => {
@@ -21,7 +22,7 @@ const NewsPage = () => {
   }, []);
 
   return (
-    <View style={styles.pageContainer}>
+    <ScrollView contentContainerStyle={styles.pageContainer}>
       {news.map((individualNew: any) => (
         <NewsCard
           key={individualNew._id}
@@ -30,9 +31,7 @@ const NewsPage = () => {
           createdAt={individualNew.createdAt}
         />
       ))}
-
-      {/* <CommunicationForm /> */}
-    </View>
+    </ScrollView>
   );
 };
 
