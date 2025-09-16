@@ -15,10 +15,8 @@ const CommunicationForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const body = { title, message, author, img }; // adjust fields to match your backend schema
+      const body = { title, message, author, img };
       const res = await postCommunication(body);
-
-      //   console.log(res);
 
       // if you want to check response json
       const data = await res!.json?.();
@@ -54,6 +52,14 @@ const CommunicationForm = () => {
         placeholder="Enter message"
         value={author}
         onChangeText={setAuthor}
+      />
+
+      <Text style={styles.label}>Thumbnail</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Upload Image"
+        value={img}
+        onChangeText={setImg}
       />
 
       <Button title="Submit" onPress={handleSubmit} />
