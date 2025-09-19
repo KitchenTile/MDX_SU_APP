@@ -21,9 +21,13 @@ const NewsPage = () => {
     fetchData();
   }, []);
 
+    useEffect(() => {
+    console.log(news)
+  }, [news]);
+
   return (
     <ScrollView contentContainerStyle={styles.pageContainer}>
-      {news.map((individualNew: any) => (
+      {news?.map((individualNew: any) => (
         <NewsCard
           key={individualNew._id}
           title={individualNew.title}
