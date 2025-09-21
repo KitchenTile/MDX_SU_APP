@@ -33,6 +33,7 @@ const NewsPage = () => {
           title={individualNew.title}
           image={individualNew.img}
           createdAt={individualNew.createdAt}
+          author={individualNew.author}
         />
       ))}
     </ScrollView>
