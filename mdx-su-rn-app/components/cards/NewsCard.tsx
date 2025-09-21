@@ -34,7 +34,7 @@ const NewsCard = ({
           resizeMode="cover"
         />
         <LinearGradient
-          colors={['transparent', "rgba(0,0,0,0.8)"]}
+          colors={['transparent', "rgba(0,0,0,1)"]}
           style={styles.background}
         />   
         <View style={styles.textContainer}>
@@ -43,11 +43,12 @@ const NewsCard = ({
           </Text>
         </View>
       </View>
-      <View styles={styles.footer}>
-                  <Text style={{ fontSize: 13, color: "white" }}>{formattedCreatedAt}</Text>
-      <TouchableOpacity style={styles.arrowRight} onPress={() => {}}>
-        <FontAwesome6 name="arrow-right" size={20} color="black" />
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <Text style={{ fontSize: 13, color: "black"}}>{author}</Text>
+        <Text style={{ fontSize: 11, color: "rgba(0, 0, 0, 0.54)"}}>{formattedCreatedAt}</Text>
+        <TouchableOpacity style={styles.arrowRight} onPress={() => {}}>
+          <FontAwesome6 name="arrow-right" size={20} color="black" />
+        </TouchableOpacity>
       </View>
     </View>
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     boxShadow: "rgba(0, 0, 0, 0.41) 0px 0px 10px 0px",
     marginBlock: 10,
     flexDirection: "row",
-    maxHeight: 300,
+    maxHeight: 200,
     overflow: "hidden",
     flex: 1
   },
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
 
   imageTextContainer: {
     position: "relative",
-    backgroundColor: "black",
+    height: "80%"
   },
   textContainer: {
     padding: 10,
@@ -110,25 +111,30 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     maxWidth: "100%",
-    height: 150
+    height: "100%"
     },
 
   title: {
     fontSize: 16,
     fontWeight: "600",
     flexShrink: 1,
-    marginBottom: 10,
+    // marginBottom: 10,
     color: "white",
   },
 
   footer: {
     height: "20%",
-    background: "#fff",
+    width: "100%",
+    position: "absolute",
+    bottom: 0,
+    justifyContent: "center",
+    paddingLeft: 10,
+    flexDirection: "row"
   },
 
   arrowRight: {
     position: "absolute",
     right: 15,
-    bottom: 10,
+    // bottom: 10,
   },
 });
